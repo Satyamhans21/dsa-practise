@@ -18,12 +18,30 @@ public class SubsequenceWithSumK {
         s-=removed;
         subsWithSumK(arr,list,idx+1,s,sum);
     }
+
+    public static int countSubsWithSumK(int[] arr,int idx,int s,int sum){
+        if(s>sum) return 0;
+        if(idx==arr.length){
+            if(s==sum){
+                return 1;
+            }
+            else return 0;
+        }
+
+        s+=arr[idx];
+        int left= countSubsWithSumK(arr,idx+1,s,sum);
+        s-=arr[idx];
+        int right=countSubsWithSumK(arr,idx+1,s,sum);
+
+        return left+right;
+    }
     public static void main(String[] args) {
 
-        int[] arr={1,2,1,2,4,6,87,4,6,4,6,8,3,1,3,6,9,0,4};
-        int sum=5;
+        int[] arr={1,2,1,2,0};
+        int sum=2;
         List<Integer> list=new ArrayList<>();
         subsWithSumK(arr,list,0,0,sum);
+        System.out.println(countSubsWithSumK(arr,0,0,sum));
 
     }
 }
